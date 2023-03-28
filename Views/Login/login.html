@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+   <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link href="../../Assets/fontawesome/css/fontawesome.css" rel="stylesheet">
+      <link href="../../Assets/fontawesome/css/brands.css" rel="stylesheet">
+      <link href="../../Assets/fontawesome/css/solid.css" rel="stylesheet">
+      <!-- <link href="../styles.css" rel="stylesheet"> -->
+      <link href="login.css" rel="stylesheet">
+      <title>Login</title>
+   </head>
+   <body>
+      <div class="container">
+        <!-- first content -->
+         <div class="content first-content">
+            <div class="first-column">
+               <h2 class="title title-primary">Sign in</h2>
+               <p class="description description-primary">already have a account</p>
+               <p class="description description-primary">and start journey with us</p>
+               <div>
+                  <button id="signin" type="submit" class="btn btn-primary">Sign In</button>
+               </div>
+            </div>
+            <div class="second-column">
+               <form class="form" method="post" id="registro">
+                  <h2 class="title title-second">Create Account</h2>
+                  <label class="label-input" for="">
+                  <i class="fas fa-lock icon-modify"></i>
+                  <input type="text" placeholder="Nome" id="username">
+                  </label>
+                  <label class="label-input" for="">
+                  <i class="far fa-envelope icon-modify"></i>
+                  <input type="email" placeholder="Email" id="email">
+                  </label>
+                  <label class="label-input" for="">
+                  <i class="fas fa-lock icon-modify"></i>
+                  <input type="text" placeholder="Cpf" id="cpf">
+                  </label>
+                  <label class="label-input" for="">
+                  <i class="fas fa-lock icon-modify"></i>
+                  <input type="password" placeholder="Password" id="password">
+                  </label>
+                  <button type="submit" class="btn btn-second">Sign Up</button>
+               </form>
+            </div>
+         </div>
+         <!-- first content -->
+         <!-- second-content -->
+         <div class="content second-content">
+            <div class="first-column">
+               <h2 class="title title-primary">Sign Up</h2>
+               <p class="description description-primary">Enter your personal details</p>
+               <p class="description description-primary">and start journey with us</p>
+               <button id="signup" class="btn btn-primary">sign up</button>
+            </div>
+            <div class="second-column">
+               <h2 class="title title-second">sign in</h2>
+               <form class="form" method="post" id="login">
+                  <label class="label-input" for="">
+                  <i class="far fa-envelope icon-modify"></i>
+                  <input type="text" placeholder="Email" id="emailcpf">
+                  </label>
+                  <label class="label-input" for="">
+                  <i class="fas fa-lock icon-modify"></i>
+                  <input type="password" placeholder="Password" id="passwordlogin">
+                  </label>
+                  <a class="password" href="#">forgot your password?</a>
+                  <button type="submit" class="btn btn-second">sign in</button>
+               </form>
+            </div>
+         </div>
+         <!-- second-content -->
+      </div>
+      <script src="login.js"></script>
+   </body>
+</html>
