@@ -1,7 +1,6 @@
 {
     "compileOnSave": true,
     "compilerOptions": {
-        "noImplicitReturns": false,
         "target": "es2015",
         "module": "commonjs",
         "lib": ["ESNext",
@@ -17,7 +16,7 @@
         "alwaysStrict": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "noImplicitReturns": true,
+        "noImplicitReturns": false,
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
         "noFallthroughCasesInSwitch": true,
