@@ -10,25 +10,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model registro {
+model user {
   id              Int          @id @default(autoincrement())
   nome            String
-  email           String
-  telefone        BigInt
-  endereco        String
-  numero          Int
-  bairro          String
-  cidade          String
+  cpf             String       @unique
+  email           String       @unique
   password        String
   change_password Boolean?     @default(true)
   permissoes      permissoes[]
 }
 
 model permissoes {
-  id                     Int      @id @default(autoincrement())
+  id                     Int    @id @default(autoincrement())
   permissoes_id          Int
   descricao_da_permissao String
-  login                  registro @relation(fields: [permissoes_id], references: [id])
+  login                  user   @relation(fields: [permissoes_id], references: [id])
 }
 
 model produtos {

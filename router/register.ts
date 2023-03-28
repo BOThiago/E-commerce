@@ -1,6 +1,7 @@
 import express from "express";
 import { prisma } from "../functions/client";
 import bcryptjs from "bcryptjs";
+import { cleanCpf, verifyCpf } from "../functions/validCpf";
 
 const router = express.Router();
 const JSONbig = require("json-bigint");
@@ -11,76 +12,55 @@ router.use(express.json());
 
 router.post("/", async (req, res) => {
     try {
-        const {
-            nome,
-            email,
-            telefone,
-            endereco,
-            numero,
-            bairro,
-            cidade,
-            password,
-        } = req.body;
+        const { nome, cpf, email, password } = req.body;
 
-        if (
-            !nome ||
-            !email ||
-            !telefone ||
-            !endereco ||
-            !numero ||
-            !bairro ||
-            !cidade ||
-            !password
-        ) {
+        if (!nome || !cpf || !email || !password) {
             return res.json({
                 message: "Parâmetros de registros não definidos!",
             });
         }
 
-        const hashedPassword = await bcryptjs.hash(password, 10);
-
-        const register = await prisma.registro.create({
-            data: {
-                nome: nome,
-                email: email,
-                telefone: telefone,
-                endereco: endereco,
-                numero: numero,
-                bairro: bairro,
-                cidade: cidade,
-                password: hashedPassword,
-            },
-        });
-
-        const user = await prisma.registro.findMany({
-            where: {
-                email: email,
-            },
-        });
-
-        if (user.length < 1) {
-            return res
-                .json({ message: "Não foi possível cadastrar o usuário!" })
-                .status(432);
+        if (verifyCpf(cpf) == false) {
+            return res.json({ message: "CPF inválido!" });
         }
 
-        const verifyEmail = await prisma.registro.findMany({
+        const hashedPassword = await bcryptjs.hash(password, 10);
+
+        const user = await prisma.user.findMany({
+            where: {
+                cpf: cleanCpf(cpf),
+            },
+        });
+
+        if (user.length > 0) {
+            return res.json({ message: "CPF já cadastrado!" }).status(432);
+        }
+
+        const verifyEmail = await prisma.user.findMany({
             where: {
                 email: email,
             },
         });
 
-        if (verifyEmail.length > 1) {
+        if (verifyEmail.length > 0) {
             return res
                 .send(JSONbig.stringify({ message: "E-mail já cadastrado!" }))
                 .status(432);
         }
 
+        await prisma.user.create({
+            data: {
+                nome: nome,
+                email: email,
+                cpf: cleanCpf(cpf),
+                password: hashedPassword,
+            },
+        });
+
         return res
             .send(
                 JSONbig.stringify({
                     message: "Usuário cadastrado com sucesso!",
-                    user: user,
                 })
             )
             .status(432);
@@ -92,6 +72,11 @@ router.post("/", async (req, res) => {
             })
         );
     }
+    return res.status(500).send(
+        JSONbig.stringify({
+            message: "Não foi possível criar o usuário!",
+        })
+    );
 });
 
 module.exports = router;
