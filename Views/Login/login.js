@@ -60,7 +60,7 @@ document.getElementById("login").addEventListener("submit", function(event) {
   .then(data => {
     console.log(data);
     let token = data.token;
-    document.cookie = "token=" + token + "; path=/";
+    document.cookie = "x-access-token=" + token + "; path=/";
     window.location.href = "../Home/home.html";
      // faça algo com a resposta da API
   })

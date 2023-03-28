@@ -1,16 +1,14 @@
 window.onload = function() {
-  let token = getCookie("token");
-
+  let token = getCookie("x-access-token");
   // Se o token existir, envie uma solicitação POST para validar o token
   if (token) {
-    let data = { token: token };
+    let data = { "x-access-token": token };
 
     fetch("http://10.112.92.41:4335/home", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "x-access-token": token
       },
-      body: JSON.stringify(data)
     })
     .then(response => {
       if (response.status === 401) {
@@ -21,9 +19,11 @@ window.onload = function() {
       }
     })
     .catch(error => {
+      console.log(error);
       // gerencie o erro
     });
   } else {
+    console.log('n existe');
     // Redireciona para a página de login se o token não existir
     window.location.href = "../Login/login.html";
   }
