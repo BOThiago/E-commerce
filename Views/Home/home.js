@@ -1,15 +1,20 @@
-window.onload = function () {
+import { getIP } from "../../functions/ip";
+import { getPort } from "../../functions/port";
+
+window.onload = async function() {
     let token = getCookie("x-access-token");
     // Se o token existir, envie uma solicitação POST para validar o token
     if (token) {
         let data = { "x-access-token": token };
 
-        fetch(`http://${IP}:4335/home`, {
-            method: "POST",
+        const teste = await fetch(`${getIP()}:${getPort()}/home`, {
+            method: "GET",
             headers: {
                 "x-access-token": token,
             },
-        })
+        });
+        console
+            .log(teste)
             .then((response) => {
                 if (response.status === 401) {
                     // Redireciona para a página de login se o token for inválido

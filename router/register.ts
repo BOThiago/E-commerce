@@ -72,11 +72,6 @@ router.post("/", async (req, res) => {
             })
         );
     }
-    return res.status(500).send(
-        JSONbig.stringify({
-            message: "Não foi possível criar o usuário!",
-        })
-    );
 });
 
 module.exports = router;

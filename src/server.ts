@@ -1,6 +1,8 @@
 import express from "express";
 import { signinRoutes, registerRoutes, homeRoutes } from "./routes";
 import { verifyJWT } from "../middlewares/verifyJWT";
+import { getPort } from "../functions/port";
+
 import cors from "cors";
 
 const app = express();
@@ -11,7 +13,9 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.json());
 
-app.listen(4335, () => console.log("Server is running in port 4335!"));
+app.listen(getPort(), () =>
+    console.log(`Server is running in port ${getPort()}!`)
+);
 
 app.use("/signup", registerRoutes);
 
