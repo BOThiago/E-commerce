@@ -22,8 +22,8 @@ function App() {
     return (
         <div className="App">
             {/* Renderiza os componentes SignIn e SignUp */}
-            <SignIn onSignInClick={handleSignInClick} />
             <SignUp onSignUpClick={handleSignUpClick} />
+            <SignIn onSignInClick={handleSignInClick} />
         </div>
     );
 }
