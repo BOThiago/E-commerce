@@ -1,27 +1,23 @@
 import React from "react";
 import useAuthorization from "./useAuthorization";
 
-interface HomeProps {
-  isLoading: boolean;
-  conteudo: string;
-}
+const Home: React.FC = () => {
+  const { isLoading, conteudo } = useAuthorization({ endpoint: "/home" });
 
-const Home: React.FC<HomeProps> = () => {
-    const { isLoading, conteudo } = useAuthorization({ endpoint: "/home" });
-
-    return (
-      <div>
-        {isLoading ? (
-          <h1>Loading...</h1>
-        ) : (
+  return (
+    <div>
+      {isLoading ? (
+        <h1>Loading...</h1>
+      ) : (
+        conteudo && (
           <>
             <h1>Usuário Logado</h1>
             <p>{conteudo}</p>
           </>
-        )}
-      </div>
-    );
-  };
-  
+        )
+      )}
+    </div>
+  );
+};
 
 export default Home;

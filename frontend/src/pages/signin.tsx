@@ -3,7 +3,6 @@ import api from "./services/api";
 import { useRouter } from "next/router";
 
 export default function Signin() {
-
     const router = useRouter();
 
     const [login, setLogin] = useState("");
@@ -24,61 +23,55 @@ export default function Signin() {
     };
 
     return (
-        <div className="container">
-            <div className="content second-content">
-                <div className="first-column">
-                    <h2 className="title title-primary">Registre-se</h2>
-                    <p className="description description-primary">
-                        Enter your personal details
-                    </p>
-                    <p className="description description-primary">
-                        and start journey with us
-                    </p>
-                    <a id="signup" href="/signup" className="btn btn-primary">
-                        sign up
+        <form
+            className="login"
+            method="post"
+            id="login"
+            onSubmit={handleSubmit}
+        >
+            <h2>Fazer login</h2>
+            <div className="box-user">
+                <input
+                    type="text"
+                    name=""
+                    placeholder="CPF ou E-mail"
+                    id="emailcpf"
+                    autoComplete="off"
+                    value={login}
+                    onChange={(e) => setLogin(e.target.value)}
+                />
+                <label>Usuário</label>
+            </div>
+            <div className="box-user">
+                <input
+                    type="password"
+                    placeholder="Senha"
+                    id="passwordlogin"
+                    autoComplete="off"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+                <label>Senha</label>
+            </div>
+            <div className="questions">
+                <div>
+                    <a href="/signup" className="cadastrar">
+                        Não possui cadastro?
                     </a>
                 </div>
-                <div className="second-column">
-                    <h2 className="title title-second">Entrar</h2>
-                    <form
-                        className="form"
-                        method="post"
-                        id="login"
-                        onSubmit={handleSubmit}
-                    >
-                        <label className="label-input">
-                            <i className="far fa-envelope icon-modify"></i>
-                            <input
-                                type="text"
-                                placeholder="Email"
-                                id="emailcpf"
-                                value={login}
-                                onChange={(e) => setLogin(e.target.value)}
-                            />
-                        </label>
-                        <label className="label-input">
-                            <i className="fas fa-lock icon-modify"></i>
-                            <input
-                                type="password"
-                                placeholder="Senha"
-                                id="passwordlogin"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                            />
-                        </label>
-                        <a className="password" href="change-password">
-                            forgot your password?
-                        </a>
-                        <button
-                            id="signin"
-                            type="submit"
-                            className="btn btn-second"
-                        >
-                            Entrar
-                        </button>
-                    </form>
+                <div>
+                    <a href="/change-password" className="cadastrar">
+                        Esqueceu a senha?
+                    </a>
                 </div>
             </div>
-        </div>
-    )
+            <button type="submit" className="btn">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                Entrar
+            </button>
+        </form>
+    );
 }

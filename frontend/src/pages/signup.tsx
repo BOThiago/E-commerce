@@ -20,7 +20,7 @@ export default function Signup() {
                 email,
                 password,
             });
-            
+
             if (response.status === 200) {
                 router.push("/signin");
             }
@@ -30,81 +30,65 @@ export default function Signup() {
     };
 
     return (
-        <div className="container">
-            <div className="content first-content">
-                <div className="first-column">
-                    <h2 className="title title-primary">Entre</h2>
-                    <p className="description description-primary">
-                        Já tem uma conta ?
-                    </p>
-                    <p className="description description-primary">
-                        Comece a jornada conosco !
-                    </p>
-                    <div>
-                        <a
-                            id="signin"
-                            href="/signin"
-                            type="submit"
-                            className="btn btn-primary"
-                        >
-                            Entrar
-                        </a>
-                    </div>
-                </div>
-                <div className="second-column">
-                    <form
-                        className="form"
-                        method="post"
-                        id="registro"
-                        onSubmit={handleSubmit}
-                    >
-                        <h2 className="title title-second">Criar conta</h2>
-                        <label className="label-input">
-                            <i className="fas fa-lock icon-modify"></i>
-                            <input
-                                type="text"
-                                placeholder="Nome"
-                                id="username"
-                                value={nome}
-                                onChange={(e) => setNome(e.target.value)}
-                            />
-                        </label>
-                        <label className="label-input">
-                            <i className="far fa-envelope icon-modify"></i>
-                            <input
-                                type="text"
-                                placeholder="CPF"
-                                id="cpf"
-                                value={cpf}
-                                onChange={(e) => setCpf(e.target.value)}
-                            />
-                        </label>
-                        <label className="label-input">
-                            <i className="far fa-envelope icon-modify"></i>
-                            <input
-                                type="email"
-                                placeholder="Email"
-                                id="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                            />
-                        </label>
-                        <label className="label-input">
-                            <i className="fas fa-lock icon-modify"></i>
-                            <input
-                                type="password"
-                                placeholder="Senha"
-                                id="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                            />
-                        </label>
-                        <button type="submit" className="btn btn-second">
-                            Registrar
-                        </button>
-                    </form>
-                </div>
+        <form
+            className="login"
+            method="post"
+            id="registro"
+            onSubmit={handleSubmit}
+        >
+            <h2>Criar conta</h2>
+            <div className="box-user">
+                <input
+                    type="text"
+                    placeholder="Nome"
+                    id="username"
+                    value={nome}
+                    onChange={(e) => setNome(e.target.value)}
+                />
+                <label>Nome</label>
+            </div> 
+            <div className="box-user">
+                <input
+                    type="text"
+                    placeholder="CPF"
+                    id="cpf"
+                    value={cpf}
+                    onChange={(e) => setCpf(e.target.value)}
+                />
+                <label>CPF</label>
             </div>
-        </div>
+            <div className="box-user">
+                <input
+                    type="email"
+                    placeholder="Email"
+                    id="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+                <label>E-mail</label>
+            </div>
+            <div className="box-user">
+                <input
+                    type="password"
+                    placeholder="Senha"
+                    id="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+                <label>Senha</label>
+            </div>
+            <div>
+                <a href="/signin" className="cadastrar">
+                    Já possui cadastro? Clique aqui!
+                </a>
+            </div>
+            <button type="submit" className="btn">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                Registrar
+            </button>
+        </form>
     );
 }
