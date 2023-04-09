@@ -8,8 +8,8 @@ router.use(express.urlencoded({ extended: true }));
 router.use(express.json());
 
 router.get("/", async (req, res) => {
-    const headers = req.headers;
-    console.log(headers);
+    req.headers;
+
     try {
         return res.json({ message: "Logado com sucesso!" }).status(200);
     } catch (error) {
