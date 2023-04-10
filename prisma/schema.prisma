@@ -10,34 +10,66 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model user {
-  id              Int          @id @default(autoincrement())
+model Cliente {
+  cliente_id Int      @id @default(autoincrement())
+  nome       String
+  email      String   @unique
+  senha      String
+  endereco   String
+  cidade     String
+  estado     String
+  cep        String
+  pedidos    Pedido[]
+}
+
+model User {
+  user_id         Int          @id @default(autoincrement())
   nome            String
   cpf             String       @unique
   email           String       @unique
   password        String
   change_password Boolean?     @default(true)
-  permissoes      permissoes[]
+  permissoes      Permissoes[]
 }
 
-model permissoes {
-  id                     Int    @id @default(autoincrement())
-  permissoes_id          Int
+model Permissoes {
+  permissao_id           Int    @id @default(autoincrement())
   descricao_da_permissao String
-  login                  user   @relation(fields: [permissoes_id], references: [id])
+  login                  User   @relation(fields: [permissao_id], references: [user_id])
 }
 
-model produtos {
-  id            Int       @id @default(autoincrement())
-  nome_prod     String
-  desc_prod     String
-  qtd_embalagem Int
-  qtd_estoque   estoque[]
+model Produto {
+  produto_id         Int           @id @default(autoincrement())
+  nome               String
+  descricao          String
+  preco              Float
+  quantidade_estoque Int
+  categoria_id       Int
+  categoria          Categoria     @relation(fields: [categoria_id], references: [categoria_id])
+  itens_pedido       Item_Pedido[]
 }
 
-model estoque {
-  id          Int      @id @default(autoincrement())
-  produto_id  Int
-  qtd_estoque Int
-  estoque     produtos @relation(fields: [produto_id], references: [id])
+model Categoria {
+  categoria_id Int       @id @default(autoincrement())
+  nome         String
+  produtos     Produto[]
+}
+
+model Pedido {
+  pedido_id   Int           @id @default(autoincrement())
+  cliente_id  Int
+  cliente     Cliente       @relation(fields: [cliente_id], references: [cliente_id])
+  data_pedido DateTime      @default(now())
+  status      String
+  itens       Item_Pedido[]
+}
+
+model Item_Pedido {
+  item_pedido_id Int     @id @default(autoincrement())
+  pedido_id      Int
+  pedido         Pedido  @relation(fields: [pedido_id], references: [pedido_id])
+  produto_id     Int
+  produto        Produto @relation(fields: [produto_id], references: [produto_id])
+  quantidade     Int
+  preco_unitario Float
 }

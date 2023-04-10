@@ -63,7 +63,7 @@ router.post("/", async (req, res) => {
                     message: "Usuário cadastrado com sucesso!",
                 })
             )
-            .status(432);
+            .status(200);
     } catch (err) {
         console.log(err);
         return res.status(500).send(
