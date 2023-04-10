@@ -43,12 +43,12 @@ This repository contains the source code for an E-commerce platform. The platfor
 
 ## Deployment
 
--To deploy the application, you can use a hosting platform like [Vercel](https://vercel.com/) or [Netlify](https://www.netlify.com/). Make sure to set up the environment variables as described in the Installation and Setup section.
+- To deploy the application, you can use a hosting platform like [Vercel](https://vercel.com/) or [Netlify](https://www.netlify.com/). Make sure to set up the environment variables as described in the Installation and Setup section.
 
 ## Contributing
 
--Feel free to contribute to this project by opening issues or submitting pull requests. Please follow the established code style and make sure your changes are well-documented.
+- Feel free to contribute to this project by opening issues or submitting pull requests. Please follow the established code style and make sure your changes are well-documented.
 
 ## License
 
--This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
+- This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
