@@ -1,7 +1,7 @@
 import express from "express";
-import { signinRoutes, registerRoutes, homeRoutes } from "./routes";
-import { verifyJWT } from "../middlewares/verifyJWT";
-import { getPort } from "../functions/port";
+import { signinRoutes, registerRoutes, homeRoutes, prodRoutes } from "./routes";
+import { verifyJWT } from "./middlewares/verifyJWT";
+import { getPort } from "./functions/port";
 
 import cors from "cors";
 
@@ -21,4 +21,6 @@ app.use("/signup", registerRoutes);
 
 app.use("/signin", signinRoutes);
 
-app.use("/home", verifyJWT, homeRoutes);
+app.use("/home", homeRoutes);
+
+app.use("/products", verifyJWT, prodRoutes);

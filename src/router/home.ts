@@ -1,7 +1,7 @@
 import express from "express";
+import JSONbig from "json-bigint";
 
 const router = express.Router();
-const JSONbig = require("json-bigint");
 
 router.use(express.urlencoded({ extended: true }));
 

@@ -3,10 +3,9 @@ import { prisma } from "../functions/client";
 import bcryptjs from "bcryptjs";
 import { cleanCpf, verifyCpf } from "../functions/validCpf";
 import { getSecretKey } from "../functions/key";
+import jwt from "jsonwebtoken";
 
 const router = express.Router();
-const jwt = require("jsonwebtoken");
-
 router.use(express.urlencoded({ extended: true }));
 
 router.use(express.json());
@@ -96,6 +95,17 @@ router.post("/", async (req, res) => {
                     .status(432);
             }
 
+            const userData = await prisma.user.findMany({
+                where: {
+                    user_id: Number(verifyUser[0].user_id),
+                },
+                select: {
+                    nome: true,
+                    cpf: true,
+                    email: true,
+                },
+            });
+
             let getPassword = verifyUser[0].password;
 
             bcryptjs.compare(password, getPassword, (err, result) => {
@@ -114,7 +124,7 @@ router.post("/", async (req, res) => {
                         .json({
                             message: "Usuário autenticado com sucesso!",
                             token: token,
-                            userData: verifyUser,
+                            userData: userData,
                         })
                         .status(200);
                 } else {
@@ -127,7 +137,7 @@ router.post("/", async (req, res) => {
     } catch (err) {
         console.log(err);
         return res.status(500).json({
-            message: "Não foi logar!",
+            message: "Não foi possível logar!",
         });
     }
     return;

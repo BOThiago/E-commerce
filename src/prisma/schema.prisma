@@ -1,0 +1,72 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Cliente {
+  cliente_id Int      @id @default(autoincrement())
+  nome       String
+  email      String   @unique
+  senha      String
+  endereco   String
+  cidade     String
+  estado     String
+  cep        String
+  pedidos    Pedido[]
+}
+
+model User {
+  user_id         Int          @id @default(autoincrement())
+  nome            String
+  cpf             String       @unique
+  email           String       @unique
+  password        String
+  change_password Boolean?     @default(true)
+  permissoes      Permissoes[]
+}
+
+model Permissoes {
+  permissao_id           Int    @id @default(autoincrement())
+  descricao_da_permissao String
+  login                  User   @relation(fields: [permissao_id], references: [user_id])
+}
+
+model Produto {
+  produto_id         Int           @id @default(autoincrement())
+  nome               String
+  descricao          String
+  preco              Float
+  quantidade_estoque Int
+  categoria_id       Int
+  categoria          Categoria     @relation(fields: [categoria_id], references: [categoria_id])
+  itens_pedido       Item_Pedido[]
+}
+
+model Categoria {
+  categoria_id Int       @id @default(autoincrement())
+  nome         String
+  produtos     Produto[]
+}
+
+model Pedido {
+  pedido_id   Int           @id @default(autoincrement())
+  cliente_id  Int
+  cliente     Cliente       @relation(fields: [cliente_id], references: [cliente_id])
+  data_pedido DateTime      @default(now())
+  status      String
+  itens       Item_Pedido[]
+}
+
+model Item_Pedido {
+  item_pedido_id Int     @id @default(autoincrement())
+  pedido_id      Int
+  pedido         Pedido  @relation(fields: [pedido_id], references: [pedido_id])
+  produto_id     Int
+  produto        Produto @relation(fields: [produto_id], references: [produto_id])
+  quantidade     Int
+  preco_unitario Float
+}

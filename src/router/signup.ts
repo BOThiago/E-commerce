@@ -4,7 +4,7 @@ import bcryptjs from "bcryptjs";
 import { cleanCpf, verifyCpf } from "../functions/validCpf";
 
 const router = express.Router();
-const JSONbig = require("json-bigint");
+import JSONbig from "json-bigint";
 
 router.use(express.urlencoded({ extended: true }));
 
