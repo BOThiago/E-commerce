@@ -5,10 +5,10 @@ This repository contains the source code for an E-commerce platform. The platfor
 ## Features
 
 - [x] User authentication and registration
+- [x] Product management (add, edit, delete)
 - [ ] Product browsing and search
 - [ ] Shopping cart management
 - [ ] Order processing and payment integration
-- [ ] Product management (add, edit, delete)
 - [ ] Order management for sellers
 
 ## Technologies Used
