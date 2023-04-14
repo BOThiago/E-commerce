@@ -1,3 +1,0 @@
--- AlterTable
-ALTER TABLE "registro" ALTER COLUMN "telefone" SET DATA TYPE TEXT,
-ALTER COLUMN "numero" SET DATA TYPE TEXT;
