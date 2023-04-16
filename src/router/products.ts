@@ -71,7 +71,7 @@ router.post("/", async (req, res) => {
             !categoria_id
         ) {
             return res.json({
-                message: "Parâmetros de produtos não definidos!",
+                message: "Parâmetros de produto não definidos!",
             });
         }
 
@@ -107,11 +107,129 @@ router.post("/", async (req, res) => {
             .send(
                 JSONbig.stringify({
                     message: "Produto cadastrado com sucesso!",
-                    product_id: Number(JSON.stringify(verifyProd?.produto_id)),
+                    product_id: verifyProd?.produto_id,
                 })
             )
             .status(200);
-    } catch {
+    } catch (error) {
+        return res.status(500).send(
+            JSONbig.stringify({
+                message: "Não foi possível cadastrar um produto!",
+            })
+        );
+    }
+});
+
+router.patch("/:id", async (req, res) => {
+    const id = parseInt(req.params.id);
+    req.headers;
+
+    const {
+        nome_prod,
+        desc_prod,
+        preco,
+        qtd_estoque,
+        categoria,
+        categoria_id,
+    } = req.body;
+
+    if (
+        !nome_prod ||
+        !desc_prod ||
+        !preco ||
+        !qtd_estoque ||
+        !categoria ||
+        !categoria_id
+    ) {
+        return res.json({
+            message: "Parâmetros de produto não definidos!",
+        });
+    }
+
+    const findProduct = await prisma.produto.findMany({
+        where: {
+            produto_id: id,
+        },
+    });
+
+    console.log(findProduct);
+
+    if (findProduct.length < 1) {
+        return res.status(432).send(
+            JSONbig.stringify({
+                message: "Nenhum produto encontrado!",
+            })
+        );
+    }
+
+    const alterProd = await prisma.produto.update({
+        where: {
+            produto_id: id,
+        },
+        data: {
+            nome: nome_prod,
+            descricao: desc_prod,
+            preco: parseFloat(preco),
+            quantidade_estoque: Number(qtd_estoque),
+            categoria: {
+                connectOrCreate: {
+                    where: {
+                        categoria_id: Number(categoria_id),
+                    },
+                    create: {
+                        nome: categoria,
+                    },
+                },
+            },
+        },
+    });
+
+    const updatedProd = await prisma.produto.findUnique({
+        where: {
+            produto_id: alterProd.produto_id,
+        },
+    });
+
+    return res
+        .send(
+            JSONbig.stringify({
+                message: "Produto atualizado com sucesso!",
+                Update: updatedProd,
+            })
+        )
+        .status(200);
+});
+
+router.delete("/:id", async (req, res) => {
+    try {
+        const id = parseInt(req.params.id);
+
+        const findProduct = await prisma.produto.findMany({
+            where: {
+                produto_id: id,
+            },
+        });
+
+        if (findProduct.length < 1) {
+            return res.status(432).send(
+                JSONbig.stringify({
+                    message: "Nenhum produto encontrado!",
+                })
+            );
+        }
+
+        await prisma.produto.delete({
+            where: {
+                produto_id: id,
+            },
+        });
+
+        return res.status(432).send(
+            JSONbig.stringify({
+                message: "Produto deletado com sucesso!",
+            })
+        );
+    } catch (error) {
         return res.status(500).send(
             JSONbig.stringify({
                 message: "Não foi possível cadastrar um produto!",
